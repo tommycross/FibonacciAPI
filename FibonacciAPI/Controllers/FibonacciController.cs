@@ -8,9 +8,9 @@ public class FibonacciController : ControllerBase
 {
     private readonly IFibonacciService _fibonacciService;
 
-    public FibonacciController(IFibonacciService myService)
+    public FibonacciController(IFibonacciService fibonacciService)
     {
-        _fibonacciService = myService;
+        _fibonacciService = fibonacciService;
     }
 
     /// <summary>
@@ -23,7 +23,12 @@ public class FibonacciController : ControllerBase
     {
         if (length < 0)
         {
-            return NotFound();
+            return BadRequest();
+        }
+
+        if (length > 95)
+        {
+            return BadRequest();
         }
 
         FibonacciSequenceResult sequence = new()
